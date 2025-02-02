@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/widgets.dart';
+import 'package:matties_app/l10n/l10n.dart';
 
 class AppBlocObserver extends BlocObserver {
   const AppBlocObserver();
@@ -28,6 +29,12 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
   Bloc.observer = const AppBlocObserver();
 
   // Add cross-flavor configuration here
+  WidgetsFlutterBinding.ensureInitialized();
+  await LocaleSettings.useDeviceLocale();
 
-  runApp(await builder());
+  runApp(
+    TranslationProvider(
+      child: await builder(),
+    ),
+  );
 }

@@ -9,10 +9,10 @@ class PlayerSelectPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = context.l10n;
+    final l10n = context.l10n.boerenbridge.playersSelect;
     return Scaffold(
       appBar: AppBar(
-        title: Text(l10n.playersSelectTitle),
+        title: Text(l10n.title),
       ),
       bottomSheet: const Padding(
         padding: EdgeInsets.all(16),
@@ -29,8 +29,8 @@ class PlayerSelectPage extends StatelessWidget {
       body: BlocBuilder<BoerenbridgeBloc, BoerenbridgeState>(
         builder: (context, state) {
           if (state.players.isEmpty) {
-            return const Center(
-              child: Text('Gebt wat matties nodig voorda ge kunt spelen'),
+            return Center(
+              child: Text(l10n.empty),
             );
           }
           return ReorderableListView(

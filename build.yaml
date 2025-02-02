@@ -1,0 +1,20 @@
+targets:
+  $default:
+    builders:
+      slang_build_runner:
+        options:
+          base_locale: nl
+          fallback_strategy: base_locale
+          input_directory: lib/l10n
+          input_file_pattern: .l10n.json
+          output_directory: lib/l10n
+          output_file_name: translations.g.dart
+          flutter_integration: true
+          namespaces: true
+          translate_var: l10n
+          translation_class_visibility: private
+          timestamp: false
+          key_case: camel
+          key_map_case: camel
+          param_case: camel
+          string_interpolation: dart

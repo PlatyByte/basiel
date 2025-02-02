@@ -5,6 +5,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:matties_app/core/model/model.dart';
 import 'package:matties_app/features/boerenbridge/boerenbridge.dart';
+import 'package:matties_app/l10n/l10n.dart';
 
 class ScoreForm extends StatefulWidget {
   const ScoreForm({
@@ -25,6 +26,8 @@ class ScoreForm extends StatefulWidget {
 class _ScoreFormState extends State<ScoreForm> {
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n.boerenbridge.playing;
+    final state = widget.state;
     return FormBuilder(
       key: widget.formKey,
       child: Padding(
@@ -35,34 +38,19 @@ class _ScoreFormState extends State<ScoreForm> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Text(
-                '${widget.state.shuffler.name} deel keer'
-                '${widget.state.cardsInHand} koarten uit',
+                l10n.shuffleInformation(
+                  shufflerName: state.shuffler.name,
+                  amount: state.cardsInHand,
+                ),
               ),
             ),
             const SizedBox(height: 16),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Row(
+                spacing: 8,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: Text('Mattie'),
-                  ),
-                  SizedBox(width: 8),
-                  Expanded(
-                    flex: 2,
-                    child: Text('Inschatting'),
-                  ),
-                  SizedBox(width: 8),
-                  Expanded(
-                    flex: 2,
-                    child: Text('Gehaald'),
-                  ),
-                  SizedBox(width: 8),
-                  Expanded(
-                    child: Text('Score'),
-                  ),
-                ],
+                children: l10n.scoreCard.map(Text.new).toList(),
               ),
             ),
             const SizedBox(height: 16),
@@ -167,7 +155,7 @@ class _ScoreFormState extends State<ScoreForm> {
                         .add(AchievedTricksEvent(values));
                   }
                 },
-                child: const Text('Volgende'),
+                child: Text(l10n.next),
               ),
             ),
           ],

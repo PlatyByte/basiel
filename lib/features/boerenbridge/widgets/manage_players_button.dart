@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:matties_app/core/model/model.dart';
 import 'package:matties_app/features/boerenbridge/boerenbridge.dart';
+import 'package:matties_app/l10n/l10n.dart';
 
 class ManagePlayersButton extends StatelessWidget {
   const ManagePlayersButton({
@@ -10,13 +11,15 @@ class ManagePlayersButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n.boerenbridge.playersSelect;
     return FilledButton(
-      child: const Text('Matties toevoegen'),
+      child: Text(l10n.cta.select),
       onPressed: () => _showDialog(context),
     );
   }
 
   void _showDialog(BuildContext parentContext) {
+    final l10n = parentContext.l10n.boerenbridge.playersSelect;
     showDialog<AlertDialog>(
       context: parentContext,
       builder: (context) {
@@ -28,7 +31,7 @@ class ManagePlayersButton extends StatelessWidget {
                 actions: [
                   FilledButton(
                     onPressed: () => Navigator.of(context).pop(),
-                    child: const Text('Geried'),
+                    child: Text(l10n.popUp.done),
                   ),
                 ],
                 content: SizedBox(
