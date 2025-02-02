@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:matties_app/app/widgets/matties_nav_bar.dart';
+import 'package:matties_app/app/app.dart';
 import 'package:matties_app/features/boerenbridge/boerenbridge.dart';
 import 'package:matties_app/features/trips/trips.dart';
 

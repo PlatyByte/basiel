@@ -39,6 +39,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	// Translations
 	late final TranslationsAppNl app = TranslationsAppNl.internal(_root);
 	late final TranslationsBoerenbridgeNl boerenbridge = TranslationsBoerenbridgeNl.internal(_root);
+	late final TranslationsTripsNl trips = TranslationsTripsNl.internal(_root);
 }
 
 // Path: app
@@ -60,6 +61,16 @@ class TranslationsBoerenbridgeNl {
 	// Translations
 	late final TranslationsBoerenbridgePlayersSelectNl playersSelect = TranslationsBoerenbridgePlayersSelectNl.internal(_root);
 	late final TranslationsBoerenbridgePlayingNl playing = TranslationsBoerenbridgePlayingNl.internal(_root);
+}
+
+// Path: trips
+class TranslationsTripsNl {
+	TranslationsTripsNl.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get title => 'Kies je reis';
 }
 
 // Path: app.navigation
@@ -142,6 +153,7 @@ extension on Translations {
 			case 'boerenbridge.playing.scoreCard.2': return 'Gehaald';
 			case 'boerenbridge.playing.scoreCard.3': return 'Score';
 			case 'boerenbridge.playing.next': return 'Volgende ronde';
+			case 'trips.title': return 'Kies je reis';
 			default: return null;
 		}
 	}
