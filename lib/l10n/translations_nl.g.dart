@@ -37,7 +37,18 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	late final Translations _root = this; // ignore: unused_field
 
 	// Translations
+	late final TranslationsAppNl app = TranslationsAppNl.internal(_root);
 	late final TranslationsBoerenbridgeNl boerenbridge = TranslationsBoerenbridgeNl.internal(_root);
+}
+
+// Path: app
+class TranslationsAppNl {
+	TranslationsAppNl.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	late final TranslationsAppNavigationNl navigation = TranslationsAppNavigationNl.internal(_root);
 }
 
 // Path: boerenbridge
@@ -49,6 +60,17 @@ class TranslationsBoerenbridgeNl {
 	// Translations
 	late final TranslationsBoerenbridgePlayersSelectNl playersSelect = TranslationsBoerenbridgePlayersSelectNl.internal(_root);
 	late final TranslationsBoerenbridgePlayingNl playing = TranslationsBoerenbridgePlayingNl.internal(_root);
+}
+
+// Path: app.navigation
+class TranslationsAppNavigationNl {
+	TranslationsAppNavigationNl.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get trips => 'Reisjes';
+	String get games => 'Spelletjes';
 }
 
 // Path: boerenbridge.playersSelect
@@ -107,6 +129,8 @@ class TranslationsBoerenbridgePlayersSelectPopUpNl {
 extension on Translations {
 	dynamic _flatMapFunction(String path) {
 		switch (path) {
+			case 'app.navigation.trips': return 'Reisjes';
+			case 'app.navigation.games': return 'Spelletjes';
 			case 'boerenbridge.playersSelect.title': return 'Met wie goa je spiele?';
 			case 'boerenbridge.playersSelect.empty': return 'Gebt wat matties nodig voorda ge kunt spelen';
 			case 'boerenbridge.playersSelect.cta.start': return 'Spele moar!';
