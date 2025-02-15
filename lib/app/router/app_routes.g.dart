@@ -18,6 +18,12 @@ RouteBase get $homeRoute => StatefulShellRouteData.$route(
             GoRouteData.$route(
               path: '/',
               factory: $TripsRouteExtension._fromState,
+              routes: [
+                GoRouteData.$route(
+                  path: 'trip/:tripId',
+                  factory: $TripDetailRouteExtension._fromState,
+                ),
+              ],
             ),
           ],
         ),
@@ -57,6 +63,28 @@ extension $TripsRouteExtension on TripsRoute {
       context.pushReplacement(location);
 
   void replace(BuildContext context) => context.replace(location);
+}
+
+extension $TripDetailRouteExtension on TripDetailRoute {
+  static TripDetailRoute _fromState(GoRouterState state) => TripDetailRoute(
+        state.pathParameters['tripId']!,
+        state.extra as TravelsBloc,
+      );
+
+  String get location => GoRouteData.$location(
+        '/trip/${Uri.encodeComponent(tripId)}',
+      );
+
+  void go(BuildContext context) => context.go(location, extra: $extra);
+
+  Future<T?> push<T>(BuildContext context) =>
+      context.push<T>(location, extra: $extra);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location, extra: $extra);
+
+  void replace(BuildContext context) =>
+      context.replace(location, extra: $extra);
 }
 
 extension $PlayerSelectRouteExtension on PlayerSelectRoute {

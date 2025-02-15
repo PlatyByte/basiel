@@ -1,3 +1,5 @@
+part of 'model.dart';
+
 enum Matties {
   pj('ppj'),
   bramC('Broemst'),
@@ -24,4 +26,8 @@ enum Matties {
 
   static Matties fromString(String name) =>
       Matties.values.firstWhere((element) => element.name == name);
+
+  static List<BasielUser> users() => Matties.values
+      .map((m) => BasielUser(id: '${m.index}', name: m.name))
+      .toList();
 }

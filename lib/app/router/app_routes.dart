@@ -13,7 +13,14 @@ part 'app_routes.g.dart';
   branches: <TypedStatefulShellBranch<StatefulShellBranchData>>[
     TypedStatefulShellBranch<StatefulShellBranchData>(
       routes: <TypedRoute<RouteData>>[
-        TypedGoRoute<TripsRoute>(path: '/'),
+        TypedGoRoute<TripsRoute>(
+          path: '/',
+          routes: <TypedGoRoute<GoRouteData>>[
+            TypedGoRoute<TripDetailRoute>(
+              path: 'trip/:tripId',
+            ),
+          ],
+        ),
       ],
     ),
     TypedStatefulShellBranch<StatefulShellBranchData>(
@@ -40,13 +47,6 @@ class HomeRoute extends StatefulShellRouteData {
     StatefulNavigationShell navigationShell,
   ) =>
       MattiesNavigation(shell: navigationShell);
-}
-
-class TripsRoute extends GoRouteData {
-  @override
-  Widget build(BuildContext context, GoRouterState state) {
-    return const TravelPage();
-  }
 }
 
 class PlayerSelectRoute extends GoRouteData {

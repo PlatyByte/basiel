@@ -3,6 +3,8 @@ import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_web_plugins/url_strategy.dart';
+import 'package:go_router/go_router.dart';
 import 'package:matties_app/l10n/l10n.dart';
 
 class AppBlocObserver extends BlocObserver {
@@ -27,6 +29,8 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
   };
 
   Bloc.observer = const AppBlocObserver();
+  GoRouter.optionURLReflectsImperativeAPIs = true;
+  usePathUrlStrategy();
 
   // Add cross-flavor configuration here
   WidgetsFlutterBinding.ensureInitialized();
