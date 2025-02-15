@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:matties_app/core/extensions/build_context_extension.dart';
 import 'package:matties_app/l10n/l10n.dart';
 
-class MattiesNavigation extends StatelessWidget {
+class MattiesNavigation extends StatefulWidget {
   const MattiesNavigation({
     required this.shell,
     super.key,
@@ -11,28 +12,41 @@ class MattiesNavigation extends StatelessWidget {
   final StatefulNavigationShell shell;
 
   @override
-  Widget build(BuildContext context) {
-    final size = MediaQuery.maybeSizeOf(context);
+  State<MattiesNavigation> createState() => _MattiesNavigationState();
+}
 
-    if (size != null && size.width > 840) {
+class _MattiesNavigationState extends State<MattiesNavigation> {
+  late GlobalKey<ScaffoldState> _scaffoldKey;
+
+  @override
+  void initState() {
+    super.initState();
+    _scaffoldKey = GlobalKey<ScaffoldState>();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final drawer = NavigationDrawer(
+      selectedIndex: widget.shell.currentIndex,
+      onDestinationSelected: _onTap,
+      children: [
+        for (final MapEntry(key: icon, value: label)
+            in _branches(context).entries)
+          NavigationDrawerDestination(
+            icon: Icon(icon),
+            label: Text(label),
+          ),
+      ],
+    );
+
+    if (context.isBigScreen) {
       return Scaffold(
+        key: _scaffoldKey,
         body: Row(
           children: [
-            NavigationRail(
-              selectedIndex: shell.currentIndex,
-              labelType: NavigationRailLabelType.all,
-              onDestinationSelected: _onTap,
-              destinations: [
-                for (final MapEntry(key: icon, value: label)
-                    in _branches(context).entries)
-                  NavigationRailDestination(
-                    icon: Icon(icon),
-                    label: Text(label),
-                  ),
-              ],
-            ),
+            drawer,
             Expanded(
-              child: shell,
+              child: widget.shell,
             ),
           ],
         ),
@@ -40,23 +54,17 @@ class MattiesNavigation extends StatelessWidget {
     }
 
     return Scaffold(
-      body: shell,
-      bottomNavigationBar: BottomNavigationBar(
-        onTap: _onTap,
-        items: [
-          for (final MapEntry(key: icon, value: label)
-              in _branches(context).entries)
-            BottomNavigationBarItem(
-              icon: Icon(icon),
-              label: label,
-            ),
-        ],
-      ),
+      key: _scaffoldKey,
+      drawer: drawer,
+      body: widget.shell,
     );
   }
 
   void _onTap(int nextBranchIndex) {
-    return shell.goBranch(nextBranchIndex);
+    widget.shell.goBranch(nextBranchIndex);
+    if (!context.isBigScreen) {
+      _scaffoldKey.currentState?.closeDrawer();
+    }
   }
 
   Map<IconData, String> _branches(BuildContext context) {

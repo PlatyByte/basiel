@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:matties_app/app/app.dart';
-import 'package:matties_app/features/boerenbridge/boerenbridge.dart';
-import 'package:matties_app/features/trips/trips.dart';
+import 'package:matties_app/features/games/games.dart';
+import 'package:matties_app/features/travel/travel.dart';
 
 part 'app_routes.g.dart';
 
@@ -45,7 +45,7 @@ class HomeRoute extends StatefulShellRouteData {
 class TripsRoute extends GoRouteData {
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    return const TripsPage();
+    return const TravelPage();
   }
 }
 

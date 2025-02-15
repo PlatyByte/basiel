@@ -1,7 +1,7 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:matties_app/core/model/model.dart';
-import 'package:matties_app/features/boerenbridge/boerenbridge.dart';
+import 'package:matties_app/features/games/boerenbridge/boerenbridge.dart';
 
 void main() {
   blocTest<BoerenbridgeBloc, BoerenbridgeState>(

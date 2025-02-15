@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:matties_app/core/model/model.dart';
-import 'package:matties_app/features/boerenbridge/boerenbridge.dart';
+import 'package:matties_app/features/games/boerenbridge/boerenbridge.dart';
 import 'package:matties_app/l10n/l10n.dart';
 
 class ScoreForm extends StatefulWidget {
