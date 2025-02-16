@@ -22,4 +22,3 @@ jobs:
         with:
           customArgs: >-
             --target lib/main_production.dart
-            --dart-define
