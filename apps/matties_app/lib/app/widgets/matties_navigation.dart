@@ -26,36 +26,20 @@ class _MattiesNavigationState extends State<MattiesNavigation> {
 
   @override
   Widget build(BuildContext context) {
-    final drawer = NavigationDrawer(
-      selectedIndex: widget.shell.currentIndex,
-      onDestinationSelected: _onTap,
-      children: [
-        for (final MapEntry(key: icon, value: label)
-            in _branches(context).entries)
-          NavigationDrawerDestination(
-            icon: Icon(icon),
-            label: Text(label),
-          ),
-      ],
-    );
-
-    if (context.isBigScreen) {
-      return Scaffold(
-        key: _scaffoldKey,
-        body: Row(
-          children: [
-            drawer,
-            Expanded(
-              child: widget.shell,
-            ),
-          ],
-        ),
-      );
-    }
-
     return Scaffold(
       key: _scaffoldKey,
-      drawer: drawer,
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: widget.shell.currentIndex,
+        onTap: _onTap,
+        items: [
+          for (final MapEntry(key: icon, value: label)
+              in _branches(context).entries)
+            BottomNavigationBarItem(
+              icon: Icon(icon),
+              label: label,
+            ),
+        ],
+      ),
       body: widget.shell,
     );
   }

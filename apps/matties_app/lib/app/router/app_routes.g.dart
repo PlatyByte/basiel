@@ -17,11 +17,11 @@ RouteBase get $homeRoute => StatefulShellRouteData.$route(
           routes: [
             GoRouteData.$route(
               path: '/',
-              factory: $TripsRouteExtension._fromState,
+              factory: $TripsRoute._fromState,
               routes: [
                 GoRouteData.$route(
                   path: 'trip/:tripId',
-                  factory: $TripDetailRouteExtension._fromState,
+                  factory: $TripDetailRoute._fromState,
                 ),
               ],
             ),
@@ -31,11 +31,11 @@ RouteBase get $homeRoute => StatefulShellRouteData.$route(
           routes: [
             GoRouteData.$route(
               path: '/boerenbridge',
-              factory: $PlayerSelectRouteExtension._fromState,
+              factory: $PlayerSelectRoute._fromState,
               routes: [
                 GoRouteData.$route(
                   path: 'playing-game',
-                  factory: $PlayingGameRouteExtension._fromState,
+                  factory: $PlayingGameRoute._fromState,
                 ),
               ],
             ),
@@ -48,76 +48,98 @@ extension $HomeRouteExtension on HomeRoute {
   static HomeRoute _fromState(GoRouterState state) => const HomeRoute();
 }
 
-extension $TripsRouteExtension on TripsRoute {
+mixin $TripsRoute on GoRouteData {
   static TripsRoute _fromState(GoRouterState state) => TripsRoute();
 
+  @override
   String get location => GoRouteData.$location(
         '/',
       );
 
+  @override
   void go(BuildContext context) => context.go(location);
 
+  @override
   Future<T?> push<T>(BuildContext context) => context.push<T>(location);
 
+  @override
   void pushReplacement(BuildContext context) =>
       context.pushReplacement(location);
 
+  @override
   void replace(BuildContext context) => context.replace(location);
 }
 
-extension $TripDetailRouteExtension on TripDetailRoute {
+mixin $TripDetailRoute on GoRouteData {
   static TripDetailRoute _fromState(GoRouterState state) => TripDetailRoute(
         state.pathParameters['tripId']!,
         state.extra as TravelsBloc,
       );
 
+  TripDetailRoute get _self => this as TripDetailRoute;
+
+  @override
   String get location => GoRouteData.$location(
-        '/trip/${Uri.encodeComponent(tripId)}',
+        '/trip/${Uri.encodeComponent(_self.tripId)}',
       );
 
-  void go(BuildContext context) => context.go(location, extra: $extra);
+  @override
+  void go(BuildContext context) => context.go(location, extra: _self.$extra);
 
+  @override
   Future<T?> push<T>(BuildContext context) =>
-      context.push<T>(location, extra: $extra);
+      context.push<T>(location, extra: _self.$extra);
 
+  @override
   void pushReplacement(BuildContext context) =>
-      context.pushReplacement(location, extra: $extra);
+      context.pushReplacement(location, extra: _self.$extra);
 
+  @override
   void replace(BuildContext context) =>
-      context.replace(location, extra: $extra);
+      context.replace(location, extra: _self.$extra);
 }
 
-extension $PlayerSelectRouteExtension on PlayerSelectRoute {
+mixin $PlayerSelectRoute on GoRouteData {
   static PlayerSelectRoute _fromState(GoRouterState state) =>
       PlayerSelectRoute();
 
+  @override
   String get location => GoRouteData.$location(
         '/boerenbridge',
       );
 
+  @override
   void go(BuildContext context) => context.go(location);
 
+  @override
   Future<T?> push<T>(BuildContext context) => context.push<T>(location);
 
+  @override
   void pushReplacement(BuildContext context) =>
       context.pushReplacement(location);
 
+  @override
   void replace(BuildContext context) => context.replace(location);
 }
 
-extension $PlayingGameRouteExtension on PlayingGameRoute {
+mixin $PlayingGameRoute on GoRouteData {
   static PlayingGameRoute _fromState(GoRouterState state) => PlayingGameRoute();
 
+  @override
   String get location => GoRouteData.$location(
         '/boerenbridge/playing-game',
       );
 
+  @override
   void go(BuildContext context) => context.go(location);
 
+  @override
   Future<T?> push<T>(BuildContext context) => context.push<T>(location);
 
+  @override
   void pushReplacement(BuildContext context) =>
       context.pushReplacement(location);
 
+  @override
   void replace(BuildContext context) => context.replace(location);
 }

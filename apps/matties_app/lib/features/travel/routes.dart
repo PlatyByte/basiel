@@ -3,19 +3,20 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:matties_app/app/router/router.dart';
 import 'package:matties_app/core/model/travel/travel.dart';
+import 'package:matties_app/features/dashboard/view/dashboard_page.dart';
 import 'package:matties_app/features/travel/travel.dart';
 
-class TripsRoute extends GoRouteData {
+class TripsRoute extends GoRouteData with $TripsRoute {
   @override
   Widget build(BuildContext context, GoRouterState state) {
     return BlocProvider<TravelsBloc>(
       create: (_) => TravelsBloc()..add(InitializeTravelsEvent()),
-      child: const TravelPage(),
+      child: const DashboardPage(),
     );
   }
 }
 
-class TripDetailRoute extends GoRouteData {
+class TripDetailRoute extends GoRouteData with $TripDetailRoute {
   TripDetailRoute(
     this.tripId,
     this.$extra,

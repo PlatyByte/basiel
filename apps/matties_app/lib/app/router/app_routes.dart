@@ -49,7 +49,7 @@ class HomeRoute extends StatefulShellRouteData {
       MattiesNavigation(shell: navigationShell);
 }
 
-class PlayerSelectRoute extends GoRouteData {
+class PlayerSelectRoute extends GoRouteData with $PlayerSelectRoute {
   @override
   Widget build(BuildContext context, GoRouterState state) =>
       const PlayerSelectPage();
@@ -66,7 +66,7 @@ class PlayerSelectRoute extends GoRouteData {
   }
 }
 
-class PlayingGameRoute extends GoRouteData {
+class PlayingGameRoute extends GoRouteData with $PlayingGameRoute {
   @override
   Widget build(BuildContext context, GoRouterState state) =>
       const PlayingGamePage();

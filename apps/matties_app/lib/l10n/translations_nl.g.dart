@@ -3,12 +3,13 @@
 ///
 // coverage:ignore-file
 // ignore_for_file: type=lint, unused_import
+// dart format off
 
 part of 'translations.g.dart';
 
 // Path: <root>
 typedef TranslationsNl = Translations; // ignore: unused_element
-class Translations implements BaseTranslations<AppLocale, Translations> {
+class Translations with BaseTranslations<AppLocale, Translations> {
 	/// Returns the current translations of the given [context].
 	///
 	/// Usage:
@@ -17,9 +18,9 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 
 	/// You can call this constructor and build your own translation instance of this locale.
 	/// Constructing via the enum [AppLocale.build] is preferred.
-	Translations({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver})
+	Translations({Map<String, Node>? overrides, PluralResolver? cardinalResolver, PluralResolver? ordinalResolver, TranslationMetadata<AppLocale, Translations>? meta})
 		: assert(overrides == null, 'Set "translation_overrides: true" in order to enable this feature.'),
-		  $meta = TranslationMetadata(
+		  $meta = meta ?? TranslationMetadata(
 		    locale: AppLocale.nl,
 		    overrides: overrides ?? {},
 		    cardinalResolver: cardinalResolver,
@@ -35,6 +36,8 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	dynamic operator[](String key) => $meta.getTranslation(key);
 
 	late final Translations _root = this; // ignore: unused_field
+
+	Translations $copyWith({TranslationMetadata<AppLocale, Translations>? meta}) => Translations(meta: meta ?? this.$meta);
 
 	// Translations
 	late final TranslationsAppNl app = TranslationsAppNl.internal(_root);
@@ -70,6 +73,8 @@ class TranslationsTripsNl {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// nl: 'Kies je reis'
 	String get title => 'Kies je reis';
 }
 
@@ -80,7 +85,11 @@ class TranslationsAppNavigationNl {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// nl: 'Reisjes'
 	String get trips => 'Reisjes';
+
+	/// nl: 'Spelletjes'
 	String get games => 'Spelletjes';
 }
 
@@ -91,8 +100,13 @@ class TranslationsBoerenbridgePlayersSelectNl {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// nl: 'Met wie goa je spiele?'
 	String get title => 'Met wie goa je spiele?';
+
+	/// nl: 'Gebt wat matties nodig voorda ge kunt spelen'
 	String get empty => 'Gebt wat matties nodig voorda ge kunt spelen';
+
 	late final TranslationsBoerenbridgePlayersSelectCtaNl cta = TranslationsBoerenbridgePlayersSelectCtaNl.internal(_root);
 	late final TranslationsBoerenbridgePlayersSelectPopUpNl popUp = TranslationsBoerenbridgePlayersSelectPopUpNl.internal(_root);
 }
@@ -104,13 +118,18 @@ class TranslationsBoerenbridgePlayingNl {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// nl: '${shuffler_name: String} deel keer ${amount: int} koarten uit'
 	String shuffleInformation({required String shufflerName, required int amount}) => '${shufflerName} deel keer ${amount} koarten uit';
+
 	List<String> get scoreCard => [
 		'Mattie',
 		'Inschatting',
 		'Gehaald',
 		'Score',
 	];
+
+	/// nl: 'Volgende ronde'
 	String get next => 'Volgende ronde';
 }
 
@@ -121,7 +140,11 @@ class TranslationsBoerenbridgePlayersSelectCtaNl {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// nl: 'Spele moar!'
 	String get start => 'Spele moar!';
+
+	/// nl: 'Matties toevoegen'
 	String get select => 'Matties toevoegen';
 }
 
@@ -132,30 +155,34 @@ class TranslationsBoerenbridgePlayersSelectPopUpNl {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+
+	/// nl: 'Geried'
 	String get done => 'Geried';
 }
 
-/// Flat map(s) containing all translations.
+/// The flat map containing all translations for locale <nl>.
 /// Only for edge cases! For simple maps, use the map function of this library.
+///
+/// The Dart AOT compiler has issues with very large switch statements,
+/// so the map is split into smaller functions (512 entries each).
 extension on Translations {
 	dynamic _flatMapFunction(String path) {
-		switch (path) {
-			case 'app.navigation.trips': return 'Reisjes';
-			case 'app.navigation.games': return 'Spelletjes';
-			case 'boerenbridge.playersSelect.title': return 'Met wie goa je spiele?';
-			case 'boerenbridge.playersSelect.empty': return 'Gebt wat matties nodig voorda ge kunt spelen';
-			case 'boerenbridge.playersSelect.cta.start': return 'Spele moar!';
-			case 'boerenbridge.playersSelect.cta.select': return 'Matties toevoegen';
-			case 'boerenbridge.playersSelect.popUp.done': return 'Geried';
-			case 'boerenbridge.playing.shuffleInformation': return ({required String shufflerName, required int amount}) => '${shufflerName} deel keer ${amount} koarten uit';
-			case 'boerenbridge.playing.scoreCard.0': return 'Mattie';
-			case 'boerenbridge.playing.scoreCard.1': return 'Inschatting';
-			case 'boerenbridge.playing.scoreCard.2': return 'Gehaald';
-			case 'boerenbridge.playing.scoreCard.3': return 'Score';
-			case 'boerenbridge.playing.next': return 'Volgende ronde';
-			case 'trips.title': return 'Kies je reis';
-			default: return null;
-		}
+		return switch (path) {
+			'app.navigation.trips' => 'Reisjes',
+			'app.navigation.games' => 'Spelletjes',
+			'boerenbridge.playersSelect.title' => 'Met wie goa je spiele?',
+			'boerenbridge.playersSelect.empty' => 'Gebt wat matties nodig voorda ge kunt spelen',
+			'boerenbridge.playersSelect.cta.start' => 'Spele moar!',
+			'boerenbridge.playersSelect.cta.select' => 'Matties toevoegen',
+			'boerenbridge.playersSelect.popUp.done' => 'Geried',
+			'boerenbridge.playing.shuffleInformation' => ({required String shufflerName, required int amount}) => '${shufflerName} deel keer ${amount} koarten uit',
+			'boerenbridge.playing.scoreCard.0' => 'Mattie',
+			'boerenbridge.playing.scoreCard.1' => 'Inschatting',
+			'boerenbridge.playing.scoreCard.2' => 'Gehaald',
+			'boerenbridge.playing.scoreCard.3' => 'Score',
+			'boerenbridge.playing.next' => 'Volgende ronde',
+			'trips.title' => 'Kies je reis',
+			_ => null,
+		};
 	}
 }
-
